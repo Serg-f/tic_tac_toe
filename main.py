@@ -45,7 +45,7 @@ class TicTacToe:
         print()
 
     def human_go(self):
-        print('Input X coordinates:')
+        print('Input X coordinates (horizontal, vertical), each on a separated row:')
         i, j = int(input()), int(input())
         self.__check_ind((i, j))
         if self.pole[i][j]:
@@ -61,35 +61,30 @@ class TicTacToe:
                 self[i, j] = self.COMPUTER_O
                 break
 
-    @property
-    def is_human_win(self):
+    def _is_win(self, cell_value):
         for i in range(3):
-            if self[i, 0] == self[i, 1] == self[i, 2] == self.HUMAN_X:
+            if self[i, 0] == self[i, 1] == self[i, 2] == cell_value:
                 return True
-            if self[0, i] == self[1, i] == self[2, i] == self.HUMAN_X:
+            if self[0, i] == self[1, i] == self[2, i] == cell_value:
                 return True
-        if all([self[0, 0] == self[1, 1] == self[2, 2] == self.HUMAN_X]):
+        if all([self[0, 0] == self[1, 1] == self[2, 2] == cell_value]):
             return True
-        if all([self[0, 2] == self[1, 1] == self[2, 0] == self.HUMAN_X]):
+        if all([self[0, 2] == self[1, 1] == self[2, 0] == cell_value]):
             return True
         return False
+
+    @property
+    def is_human_win(self):
+        return self._is_win(self.HUMAN_X)
 
     @property
     def is_computer_win(self):
-        for i in range(3):
-            if self[i, 0] == self[i, 1] == self[i, 2] == self.COMPUTER_O:
-                return True
-            if self[0, i] == self[1, i] == self[2, i] == self.COMPUTER_O:
-                return True
-        if all([self[0, 0] == self[1, 1] == self[2, 2] == self.COMPUTER_O]):
-            return True
-        if all([self[0, 2] == self[1, 1] == self[2, 0] == self.COMPUTER_O]):
-            return True
-        return False
+        return self._is_win(self.COMPUTER_O)
 
     @property
     def is_draw(self):
-        return not self.is_human_win and not self.is_computer_win and not any([cell for row in self.pole for cell in row])
+        return not self.is_human_win and not self.is_computer_win and not any(
+            [cell for row in self.pole for cell in row])
 
     def __bool__(self):
         return not self.is_human_win and not self.is_computer_win and any([cell for row in self.pole for cell in row])
@@ -107,7 +102,6 @@ while game:
         game.computer_go()
 
     step_game += 1
-
 
 game.show()
 
