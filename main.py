@@ -18,12 +18,6 @@ class TicTacToe:
     def __init__(self):
         self.pole = [[Cell() for _ in range(3)] for _ in range(3)]
 
-    @staticmethod
-    def __check_ind(tup):
-        for v in tup:
-            if type(v) != int or not 0 <= v < 3:
-                raise IndexError('некорректно указанные индексы')
-
     def __getitem__(self, item):
         self.__check_ind(item)
         return self.pole[item[0]][item[1]].value
@@ -31,6 +25,12 @@ class TicTacToe:
     def __setitem__(self, key, value):
         self.__check_ind(key)
         self.pole[key[0]][key[1]].value = value
+
+    @staticmethod
+    def __check_ind(tup):
+        for v in tup:
+            if type(v) != int or not 0 <= v < 3:
+                raise IndexError('Indices are out of game pole size')
 
     def init(self):
         for row in self.pole:
@@ -51,7 +51,7 @@ class TicTacToe:
         if self.pole[i][j]:
             self[i, j] = self.HUMAN_X
         else:
-            self.human_go()
+            raise IndexError('The cell is not empty')
 
     def computer_go(self):
         while 1:
@@ -62,6 +62,7 @@ class TicTacToe:
                 break
 
     def _is_win(self, cell_value):
+        """check is there a row, column or diagonal in a pole with a specified value"""
         for i in range(3):
             if self[i, 0] == self[i, 1] == self[i, 2] == cell_value:
                 return True
@@ -97,7 +98,13 @@ while game:
     game.show()
 
     if step_game % 2 == 0:
-        game.human_go()
+        try:  # handle incorrect indices and repeat request if it happens
+            game.human_go()
+        except (ValueError, IndexError) as ex:
+            if ex.__class__ == ValueError:
+                ex.args = 'Invalid value, input an integer',
+            print(f'{ex.__class__.__name__}: {ex}')
+            continue
     else:
         game.computer_go()
 
