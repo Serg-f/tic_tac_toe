@@ -10,9 +10,9 @@ class Cell:
 
 
 class TicTacToe:
-    FREE_CELL = 0  # свободная клетка
-    HUMAN_X = 1  # крестик (игрок - человек)
-    COMPUTER_O = 2  # нолик (игрок - компьютер)
+    FREE_CELL = 0  # free cell
+    HUMAN_X = 1  # cross (player - human)
+    COMPUTER_O = 2  # zero (player - computer)
     SHOW_CHARS = '_X0'
 
     def __init__(self):
@@ -113,8 +113,8 @@ while game:
 game.show()
 
 if game.is_human_win:
-    print("Поздравляем! Вы победили!")
+    print("Congratulations! You won!")
 elif game.is_computer_win:
-    print("Все получится, со временем")
+    print("You lost :(")
 else:
-    print("Ничья.")
+    print("Draw.")
