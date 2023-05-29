@@ -41,6 +41,9 @@ class TicTacToe:
             print()
         print()
 
+    def reset(self):
+        self.init()  # Call the init method to reset the game state
+
     def human_go(self):
         print('Input X coordinates (horizontal, vertical), each on a separated row:')
         i, j = int(input()), int(input())
@@ -97,6 +100,8 @@ class TicTacToe:
                         best_score = min(score, best_score)
             return best_score
 
+
+
     def _is_win(self, cell_value):
         for i in range(3):
             if self[i, 0] == self[i, 1] == self[i, 2] == cell_value:
@@ -129,27 +134,34 @@ class TicTacToe:
 game = TicTacToe()
 game.init()
 step_game = 0
-while game:
+def run_game_in_terminal():
+    game = TicTacToe()
+    game.init()
+    step_game = 0
+    while game:
+        game.show()
+
+        if step_game % 2 == 0:
+            try:
+                game.human_go()
+            except (ValueError, IndexError) as ex:
+                if ex.__class__ == ValueError:
+                    ex.args = 'Invalid value, input an integer',
+                print(f'{ex.__class__.__name__}: {ex}')
+                continue
+        else:
+            game.computer_go()
+
+        step_game += 1
+
     game.show()
 
-    if step_game % 2 == 0:
-        try:
-            game.human_go()
-        except (ValueError, IndexError) as ex:
-            if ex.__class__ == ValueError:
-                ex.args = 'Invalid value, input an integer',
-            print(f'{ex.__class__.__name__}: {ex}')
-            continue
+    if game.is_human_win:
+        print("Congratulations! You won!")
+    elif game.is_computer_win:
+        print("You lost :(")
     else:
-        game.computer_go()
+        print("Draw.")
 
-    step_game += 1
-
-game.show()
-
-if game.is_human_win:
-    print("Congratulations! You won!")
-elif game.is_computer_win:
-    print("You lost :(")
-else:
-    print("Draw.")
+# Comment out the following line if you want to disable the auto-run in terminal
+# run_game_in_terminal()
