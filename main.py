@@ -1,3 +1,6 @@
+import random as r
+
+
 class Cell:
     def __init__(self):
         self.value = 0
@@ -51,53 +54,15 @@ class TicTacToe:
             raise IndexError('The cell is not empty')
 
     def computer_go(self):
-        best_score = float('-inf')
-        best_move = None
-
-        for i in range(3):
-            for j in range(3):
-                if self.pole[i][j]:
-                    self[i, j] = self.COMPUTER_O
-                    score = self.minimax(self.pole, 0, False)
-                    self[i, j] = self.FREE_CELL
-
-                    if score > best_score:
-                        best_score = score
-                        best_move = (i, j)
-
-        if best_move:
-            self[best_move] = self.COMPUTER_O
-
-    def minimax(self, state, depth, is_maximizing):
-        if self.is_human_win:
-            return -1
-        elif self.is_computer_win:
-            return 1
-        elif self.is_draw:
-            return 0
-
-        if is_maximizing:
-            best_score = float('-inf')
-            for i in range(3):
-                for j in range(3):
-                    if state[i][j].value == self.FREE_CELL:
-                        state[i][j].value = self.COMPUTER_O
-                        score = self.minimax(state, depth + 1, False)
-                        state[i][j].value = self.FREE_CELL
-                        best_score = max(score, best_score)
-            return best_score
-        else:
-            best_score = float('inf')
-            for i in range(3):
-                for j in range(3):
-                    if state[i][j].value == self.FREE_CELL:
-                        state[i][j].value = self.HUMAN_X
-                        score = self.minimax(state, depth + 1, True)
-                        state[i][j].value = self.FREE_CELL
-                        best_score = min(score, best_score)
-            return best_score
+        while 1:
+            i = r.randint(0, 2)
+            j = r.randint(0, 2)
+            if self.pole[i][j]:
+                self[i, j] = self.COMPUTER_O
+                break
 
     def _is_win(self, cell_value):
+        """check is there a row, column or diagonal in a pole with a specified value"""
         for i in range(3):
             if self[i, 0] == self[i, 1] == self[i, 2] == cell_value:
                 return True
@@ -133,7 +98,7 @@ while game:
     game.show()
 
     if step_game % 2 == 0:
-        try:
+        try:  # handle incorrect indices and repeat request if it happens
             game.human_go()
         except (ValueError, IndexError) as ex:
             if ex.__class__ == ValueError:
