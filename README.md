@@ -5,4 +5,4 @@
 - run game_GUI.py
 - just lose or draw, the AI is invincible :)
 
-![scrn](/screenshot.png)
+<img src="/screenshot.png" alt="scrn" width="400" height="300">
