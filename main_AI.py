@@ -163,5 +163,5 @@ def run_game_in_terminal():
     else:
         print("Draw.")
 
-# Comment out the following line if you want to disable the auto-run in   terminal
+# Comment out the following line if you want to disable the auto-run in terminal
 # run_game_in_terminal()
