@@ -1,4 +1,4 @@
-# tic_tac_toe study project
+## tic_tac_toe study project
  
 - minimax algorithm - [Learn How to Lose the Game](https://levelup.gitconnected.com/mastering-tic-tac-toe-with-minimax-algorithm-3394d65fa88f) 
 - [tkinker](https://realpython.com/python-gui-tkinter/) GUI with [ttk theme](https://github.com/rdbende/Sun-Valley-ttk-theme/tree/main)
@@ -7,7 +7,7 @@
 
 <img src="/screenshot.png" alt="scrn" width="500" height="700">
 
-# main_AI.py
+## main_AI.py
 This code provides a basic implementation of the Tic-Tac-Toe game logic and is expanded upon for user interaction with tkinker GUI.
 - Cell class: Represents a cell in the Tic-Tac-Toe game board. It has an initial value of 0 and overrides the __bool__ method to return True if the cell value is not 0.
 - TicTacToe class: Represents the game itself. It has constants defined for various cell values and display characters. The game board is represented as a 3x3 grid of Cell objects.
@@ -24,7 +24,7 @@ This code provides a basic implementation of the Tic-Tac-Toe game logic and is e
 - game instance: Creates an instance of the TicTacToe class and initializes the game board.
 - step_game variable: Represents the current step or turn in the game.
 
-# game_GUI.py
+## game_GUI.py
 This code combines the game logic of Tic-Tac-Toe with a graphical user interface, allowing players to play the game by clicking on the GUI buttons and see the game outcomes visually.
 - The TicTacToeGUI class represents the GUI for the game. It initializes a window using tkinter and sets its title.
 - The GUI window is configured with a minimum and maximum size, and rows and columns are configured to expand and fill the available space.
